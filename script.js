@@ -21,40 +21,40 @@ const passengerMap = [
 
 
 function findNewRide(driverPositionY, driverPositionX) {
-    //encontrar solicitações de corrida e calcular a distancia
-    let solicitacoes = []
+    //encontrar as solicitações de corrida e calcular a distancia
+    let request = []
     for (let y = 0; y < passengerMap.length; y++) {
-        let filho = passengerMap[y]
-        for (let x = 0; x < filho.length; x++) {
-            if (filho[x] === 1) {
+        let arr = passengerMap[y]
+        for (let x = 0; x < arr.length; x++) {
+            if (arr[x] === 1) {
                 deltaX = x - driverPositionX
                 deltaY = y - driverPositionY
-                let dist = Math.hypot(deltaX, deltaY)
-                let passageiro = [[y,x],dist]
-                solicitacoes.push(passageiro)
+                let distance = Math.hypot(deltaX, deltaY)
+                let passageiro = [[y,x],distance]
+                request.push(passageiro)
             }
         }
     }
 
-    //o primeiro recebe como o menor
-    let passageiroMaisPerto = solicitacoes[0]
-    let km = solicitacoes[0][1]
-
     //verificar qual esta mais perto, verifica com o primeiro que eu declarei
-    for (let i = 0; i < solicitacoes.length; i++) {
-        if (solicitacoes[i][1] < km) {
-            km = solicitacoes[i][1]
-            passageiroMaisPerto = solicitacoes[i]
+    //o primeiro recebe a primeira distancia
+    let nearestPassenger = request[0]
+    let km = request[0][1]
+    //verificando se ele é realmente o mais perto
+    for (let i = 0; i < request.length; i++) {
+        if (request[i][1] < km) {
+            km = request[i][1]
+            nearestPassenger = request[i]
         }
     }
 
     //transformando o valor para string e colocando km no final
     km = km.toFixed(2)+ " km"
     
-    //substituindo o valor da distancia para ficar formatado
-    passageiroMaisPerto.splice(1, 1, km)
+    //substituindo o valor da distanceancia para ficar formatado
+    nearestPassenger.splice(1, 1, km)
 
-    return passageiroMaisPerto
+    return nearestPassenger
 
 }
 
